@@ -1,7 +1,7 @@
 git-runstats
 ============
 
-Displays git contribution statistics (insertions + deletions)
+Display git contribution statistics (insertions + deletions)
 
 Usage
 -----
@@ -41,7 +41,7 @@ Non-live stats with limit
 git runstats -l 1000 | less
 ```
 
-Non-live stats revesed
+Non-live stats reversed
 
 ```bash
 git runstats -l 1000 | head -n -1 | sort -n
@@ -65,7 +65,7 @@ Show stats from 2019
 git runstats -- --since=2019-01-01 --until=2019-12-31
 ```
 
-Who knows most about the rust Alpine Linux pacakge
+Who knows most about the rust Alpine Linux package
 
 ```bash
 cd aports
@@ -82,7 +82,7 @@ pip install git-runstats
 Why
 ---
 
-In comparision to shortlog runstats gives immediate feedback and counts changes
+In comparison to shortlog `runstats` gives immediate feedback and counts changes
 instead of commits. Press Ctrl-C once you have enough information. Shortlog can
 also be very wrong:
 
