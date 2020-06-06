@@ -86,7 +86,7 @@ pip install git-runstats
 Why
 ---
 
-In comparison to shortlog `runstats` gives immediate feedback and counts changes
+In comparison to shortlog runstats gives immediate feedback and counts changes
 instead of commits. Press Ctrl-C once you have enough information. Shortlog can
 also be very wrong:
 
