@@ -18,7 +18,7 @@ URL = "https://github.com/adfinis-sygroup/git-runstats"
 EMAIL = "jean-louis.fuchs@adfinis-sygroup.ch"
 AUTHOR = "Jean-Louis Fuchs"
 REQUIRES_PYTHON = ">=3.8.0"
-VERSION = "0.11.0"
+VERSION = "0.12.0"
 
 # What packages are required for this module to be executed?
 REQUIRED = ["click"]
@@ -105,14 +105,14 @@ setup(
     install_requires=REQUIRED,
     extras_require=EXTRAS,
     include_package_data=True,
-    license="MIT",
+    license="AGPL-3.0-or-later",
     classifiers=[
         # Trove classifiers
         # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: Implementation :: CPython",
         "Programming Language :: Python :: Implementation :: PyPy",
     ],
