@@ -145,7 +145,7 @@ def processing(limit, isatty, proc):
     help=(
         "Display git contribution statistics (insertions + deletions). "
         "Most arguments of `git log` will work as GITARGS, but do not change "
-        "the output-format."
+        "the output-format. Use -- to separate GITARGS."
     )
 )
 @click.option("-l", "--limit", default=0, type=int, help="Number of commits to read")

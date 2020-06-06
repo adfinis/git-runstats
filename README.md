@@ -10,7 +10,7 @@ Usage
 Usage: git-runstats [OPTIONS] [GITARGS]...
 
   Most arguments of `git log` will work as GITARGS, but do not change the
-  output-format.
+  output-format. Use -- to separate GITARGS.
 
 Options:
   -l, --limit INTEGER  Number of commits to read
