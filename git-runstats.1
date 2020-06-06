@@ -1,0 +1,67 @@
+.TH GIT-RUNSTATS 1 "JULY 2020" GIT-RUNSTATS "git contribution statistics"
+.SH NAME
+git-runstats - display git contribution statistics (changes)
+.SH SYNPOSIS
+git-runstats [--limit] [--no-tty] [GITARGS]...
+.SH DESCRIPTION
+Display git contribution statistics (insertions + deletions). Answers the
+questions: "Who dunnit?", "Who can I ask?". git-runstats updates the statistics
+live as `git log` outputs the data, press Ctrl-C once you have enough
+information. It is meants to be a more humanfriendly `git shortlog`. Use -- to
+separate GITARGS.
+.SH OPTIONS
+  -l, --limit INTEGER  Number of commits to read
+  --tty / --no-tty     Enable tty
+
+Most arguments of `git log` are valid too, but do not change the output-format.
+.SH EXAMPLES
+.RE
+Live-stats
+.RS
+git runstats
+
+.RE
+Stats for `README.md`
+.RS
+git runstats README.md
+
+.RE
+Display help
+.RS
+git-runstats --help
+
+.RE
+Non-live stats with limit
+.RS
+git runstats -l 1000 | less
+
+.RE
+Non-live stats reversed
+.RS
+git runstats -l 1000 | head -n -1 | sort -n
+
+.RE
+Show stats in branch
+.RS
+git runstats master..my_branch
+
+.RE
+Show stats in current branch
+.RS
+git runstats master..
+
+.RE
+Show stats from 2019
+.RS
+git runstats -- --since=2019-01-01 --until=2019-12-31
+
+.RE
+Who knows most about the rust alpine linux package
+.RS
+cd aports
+git runstats community/rust
+.SH AUTHOR
+Jean-Louis Fuchs - https://github.com/adfinis-sygroup/git-runstats
+.SH "SEE ALSO"
+.BR git-log(1)
+.BR git(1)

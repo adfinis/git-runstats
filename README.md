@@ -69,7 +69,7 @@ Show stats from 2019
 git runstats -- --since=2019-01-01 --until=2019-12-31
 ```
 
-Who knows most about the rust Alpine Linux package
+Who knows most about the rust alpine linux package
 
 ```bash
 cd aports
