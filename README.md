@@ -3,6 +3,10 @@ git-runstats
 
 Display git contribution statistics (insertions + deletions)
 
+[![demo](./runstats_demo.svg)](./runstats_demo.svg)
+
+Performance of demo when embedded in page is bad in chrome (click link).
+
 Usage
 -----
 
@@ -117,8 +121,3 @@ $> git runstats net/802/ | head -n 10
         40  Alexey Dobriyan
         30  Joe Perches
 ```
-
-Demo
-----
-
-[![asciicast](https://asciinema.org/a/6YV1oxGoJy5YSTf3qXCHpxqsh.png)](https://asciinema.org/a/6YV1oxGoJy5YSTf3qXCHpxqsh)
