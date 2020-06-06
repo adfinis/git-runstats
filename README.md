@@ -3,9 +3,7 @@ git-runstats
 
 Display git contribution statistics (insertions + deletions)
 
-[![demo](./runstats_demo.svg)](./runstats_demo.svg)
-
-Performance of demo when embedded in page is bad in chrome (click link).
+[![demo](https://raw.githubusercontent.com/adfinis-sygroup/git-runstats/master/runstats_demo.svg)](https://raw.githubusercontent.com/adfinis-sygroup/git-runstats/master/runstats_demo.svg)
 
 Usage
 -----

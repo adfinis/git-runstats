@@ -129,7 +129,6 @@ def processing(limit, isatty, proc):
             while _running and (not limit or commits < limit):
                 date = process(stream, stats)
                 commits += 1
-        signal.signal(signal.SIGINT, signal.default_int_handler)
     except EndOfFile:
         pass
     finally:
@@ -137,8 +136,6 @@ def processing(limit, isatty, proc):
             if isatty and commits:
                 sys.stdout.write("\033[H\033[J")
             output(stats, commits, date, lines)
-            if not _running:
-                sys.stdout.write("\033[0A")
 
 
 @click.command(

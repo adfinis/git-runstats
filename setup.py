@@ -18,7 +18,7 @@ URL = "https://github.com/adfinis-sygroup/git-runstats"
 EMAIL = "jean-louis.fuchs@adfinis-sygroup.ch"
 AUTHOR = "Jean-Louis Fuchs"
 REQUIRES_PYTHON = ">=3.8.0"
-VERSION = "0.12.0"
+VERSION = "0.15.0"
 
 # What packages are required for this module to be executed?
 REQUIRED = ["click"]
