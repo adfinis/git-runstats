@@ -5,6 +5,8 @@ Display git contribution statistics (insertions + deletions)
 
 [![demo](https://raw.githubusercontent.com/adfinis-sygroup/git-runstats/master/runstats_demo.svg)](https://raw.githubusercontent.com/adfinis-sygroup/git-runstats/master/runstats_demo.svg)
 
+Answers the questions: "Who dunnit?", "Who can I ask?"
+
 Usage
 -----
 
