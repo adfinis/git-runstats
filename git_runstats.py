@@ -52,29 +52,39 @@ def readline(stream):
     return line.strip().decode("UTF-8")
 
 
+def write(string):
+    sys.stdout.write(string)
+
+
+def flush():
+    sys.stdout.flush()
+
+
+def update_from_match(stats, match):
+    files, insertions, _, deletetions = match.groups("0")
+    files = int(files)
+    insertions = int(insertions)
+    deletetions = int(deletetions)
+    stats.files += files
+    stats.insertions += insertions
+    stats.deletetions += deletetions
+    stats.sum += insertions + deletetions
+
+
 def process(stream, stats):
-    author = None
-    current = None
     while (line := readline(stream)) is not None:
         if line.startswith("next: "):
             _, _, author = line.partition("next: ")
-            author, author_date = author.split("\u25CF")
+            author, date = author.split("\u25CF")
             author = " ".join([x for x in author.split(" ") if x])
         elif match := stats_line.match(line):
             current = stats.get(author)
             if current is None:
                 current = Stats(author)
                 stats[author] = current
-            files, insertions, _, deletetions = match.groups("0")
-            files = int(files)
-            insertions = int(insertions)
-            deletetions = int(deletetions)
-            current.files += files
-            current.insertions += insertions
-            current.deletetions += deletetions
-            current.sum += insertions + deletetions
+            update_from_match(current, match)
             break
-    return author_date
+    return date
 
 
 def output(stats, commits, date, max=None):
@@ -89,23 +99,21 @@ def output(stats, commits, date, max=None):
 def term_output(stats, commits, date, max):
     rows = sorted(stats.items(), key=lambda x: x[1].sum, reverse=True)[:max]
     for item in rows:
-        sys.stdout.write("\033[K")
+        write("\033[K")  # clear line
         print(item[1])
-    sys.stdout.write("\033[K\n\033[K")
-    sys.stdout.write(f"{commits:10} commits ({date})")
-    sys.stdout.flush()
+    write("\033[K\n\033[K")  # clear two lines
+    write(f"{commits:10} commits ({date})")
+    flush()
 
 
 def display(stamp, stats, commits, date):
-    global _outputs
     new = time.monotonic()
     if new - stamp > 0.2:
         size = shutil.get_terminal_size((80, 20))
         lines = min(25, size.lines - 2)
-        sys.stdout.write("\033[0;0f")
+        write("\033[0;0f")  # move to position 0, 0
         term_output(stats, commits, date, lines)
-        lines = size.lines - 6
-        return new, lines
+        return new, size.lines
     return stamp, None
 
 
@@ -117,13 +125,14 @@ def processing(limit, isatty, proc):
     stream = proc.stdout
     try:
         if isatty:
-            sys.stdout.write("\033[H\033[J")
+            write("\033[?25l")  # hide cursor
+            write("\033[H\033[J")  # clear screen
             stamp = time.monotonic() - 0.1
             while _running and (not limit or commits < limit):
                 date = process(stream, stats)
                 stamp, lines_update = display(stamp, stats, commits, date)
                 if lines_update:
-                    lines = lines_update
+                    lines = max(4, lines_update - 6)
                 commits += 1
         else:
             while _running and (not limit or commits < limit):
@@ -132,9 +141,11 @@ def processing(limit, isatty, proc):
     except EndOfFile:
         pass
     finally:
+        if isatty:
+            write("\033[?25h")  # show cursor
         if date:
             if isatty and commits:
-                sys.stdout.write("\033[H\033[J")
+                write("\033[H\033[J")  # clear screen
             output(stats, commits, date, lines)
 
 
