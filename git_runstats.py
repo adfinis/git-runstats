@@ -1,10 +1,10 @@
 import os
 import re
-import shutil
 import signal
 import sys
-import time
+from shutil import get_terminal_size
 from subprocess import PIPE, CalledProcessError, Popen, check_call
+from time import time
 
 import click
 
@@ -107,9 +107,9 @@ def term_output(stats, commits, date, max):
 
 
 def display(stamp, stats, commits, date):
-    new = time.monotonic()
+    new = time()
     if new - stamp > 0.2:
-        size = shutil.get_terminal_size((80, 20))
+        size = get_terminal_size((80, 20))
         lines = min(25, size.lines - 2)
         write("\033[0;0f")  # move to position 0, 0
         term_output(stats, commits, date, lines)
@@ -127,7 +127,7 @@ def processing(limit, isatty, proc):
         if isatty:
             write("\033[?25l")  # hide cursor
             write("\033[H\033[J")  # clear screen
-            stamp = time.monotonic() - 0.1
+            stamp = time() - 0.1
             while _running and (not limit or commits < limit):
                 date = process(stream, stats)
                 stamp, lines_update = display(stamp, stats, commits, date)
