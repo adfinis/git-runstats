@@ -3,7 +3,7 @@ import re
 import signal
 import sys
 from shutil import get_terminal_size
-from subprocess import PIPE, CalledProcessError, Popen, check_call
+from subprocess import PIPE, CalledProcessError, Popen, TimeoutExpired, check_call
 from time import time
 
 import click
@@ -176,9 +176,16 @@ def main(limit, gitargs, tty):
     try:
         processing(limit, isatty, proc)
     finally:
+        gpid = os.getpgid(proc.pid)
         proc.terminate()
-        if not proc.wait(1):
-            proc.kill()
+        try:
+            proc.wait(1)
+        except TimeoutExpired:
+            os.killpg(gpid, signal.SIGTERM)
+            try:
+                proc.wait(1)
+            except TimeoutExpired:
+                os.killpg(gpid, signal.SIGKILL)
 
 
 if __name__ == "__main__":
